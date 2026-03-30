@@ -2,8 +2,7 @@ import google.generativeai as genai
 import os
 import time
 
-# --- SUPER BRAIN FEATURE: TEST MODE ---
-# Isko True rakhne par real API call nahi hogi, paise aur time bachega!
+
 TEST_MODE = True 
 
 API_KEY = os.environ.get("GEMINI_API_KEY", "dummy_key")
@@ -22,26 +21,22 @@ if not TEST_MODE:
 def get_ai_code(prompt: str, error_history: list = None) -> str:
     """AI se code generate karwata hai. Test mode me fake code deta hai."""
     
-    # ==========================================
-    # TEST MODE LOGIC (The Mock Engine)
-    # ==========================================
+
     if TEST_MODE:
         print("\n[MOCK AI] Thinking... (Simulating 2 seconds delay)")
-        time.sleep(2) # Thoda real feel dene ke liye delay
+        time.sleep(2) 
         
-        # Agar memory khali hai (Pehla Attempt) -> Jaan-bujh kar ERROR wala code do
+        
         if not error_history:
             print("[MOCK AI] Attempt 1: Giving BAD code intentionally to test Docker and Loop.")
             return "print('Hello user, main division kar raha hu...')\nresult = 10 / 0\nprint(result)"
             
-        # Agar memory me error hai (Dusra Attempt) -> SAHI code do (Self-Healing test)
+        
         else:
             print("[MOCK AI] Attempt 2: Giving GOOD code to test Success exit.")
             return "print('Pichli baar error aayi thi, ab maine theek kar diya hai!')\nresult = 10 / 2\nprint(f'Answer is {result}')"
 
-    # ==========================================
-    # REAL GEMINI LOGIC
-    # ==========================================
+    
     full_prompt = f"User Requirement: {prompt}\n\n"
     if error_history:
         full_prompt += "--- PREVIOUS ATTEMPTS & ERRORS ---\n"
