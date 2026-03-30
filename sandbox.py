@@ -5,9 +5,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - WARDEN - %(levelname)s - %(message)s')
 
 def execute_in_docker(code: str, timeout_seconds: int = 10) -> dict:
-    """
-    AI ke code ko ek strict, isolated Docker container me run karta hai.
-    """
+
     
    
     docker_cmd = [
@@ -74,7 +72,7 @@ def execute_in_docker(code: str, timeout_seconds: int = 10) -> dict:
 if __name__ == "__main__":
     
     print("\n--- TEST 1: Normal Code ---")
-    good_code = "print('Hello, Main Docker ke andar se bol raha hu!')"
+    good_code = "print('hello i asking inside from docker!')"
     print(execute_in_docker(good_code))
 
     
